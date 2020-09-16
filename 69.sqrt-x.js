@@ -22,10 +22,9 @@ var mySqrt = function (x) {
     } else if (mid * mid > x) {
       right = mid;
     } else if (mid * mid < x) {
-      left = mid;
+      left = mid + 1;
     }
-    if (left + 1 === right) return left;
   }
-  return right;
+  return left - 1;
 };
 // @lc code=end
