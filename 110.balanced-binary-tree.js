@@ -18,23 +18,15 @@
  * @return {boolean}
  */
 var isBalanced = function (root) {
-  if (!root) return true;
-
-  let balanced = true;
   let height = (root) => {
     if (!root) return 0;
     let lh = height(root.left);
-    if (!balanced) return -1;
+    if (lh === -1) return -1;
     let rh = height(root.right);
-    if (!balanced) return -1;
-    if (Math.abs(lh - rh) > 1) {
-      balanced = false;
-      return -1;
-    }
+    if (rh === -1) return -1;
+    if (Math.abs(lh - rh) > 1) return -1;
     return Math.max(lh, rh) + 1;
   };
-
-  height(root);
-  return balanced;
+  return height(root) !== -1;
 };
 // @lc code=end
