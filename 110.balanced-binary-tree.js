@@ -4,29 +4,29 @@
  * [110] Balanced Binary Tree
  */
 
+function TreeNode(val, left, right) {
+  this.val = val === undefined ? 0 : val;
+  this.left = left === undefined ? null : left;
+  this.right = right === undefined ? null : right;
+}
+
 // @lc code=start
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
 /**
  * @param {TreeNode} root
  * @return {boolean}
  */
 var isBalanced = function (root) {
-  let height = (root) => {
-    if (!root) return 0;
-    let lh = height(root.left);
-    if (lh === -1) return -1;
-    let rh = height(root.right);
-    if (rh === -1) return -1;
-    if (Math.abs(lh - rh) > 1) return -1;
-    return Math.max(lh, rh) + 1;
+  const helper = (node) => {
+    if (!node) {
+      return 0;
+    }
+    const lh = helper(node.left);
+    const rh = helper(node.right);
+    if (lh < 0 || rh < 0 || Math.abs(lh - rh) > 1) {
+      return -1;
+    }
+    return 1 + Math.max(lh, rh);
   };
-  return height(root) !== -1;
+  return helper(root) >= 0;
 };
 // @lc code=end

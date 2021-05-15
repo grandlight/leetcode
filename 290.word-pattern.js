@@ -11,15 +11,20 @@
  * @return {boolean}
  */
 var wordPattern = function (pattern, s) {
-  let strings = s.split(" ");
-  if (pattern.length !== strings.length) return false;
-  let pmap = {};
-  let smap = {};
-
+  const words = s.split(" ");
+  if (pattern.length !== words.length) {
+    return false;
+  }
+  const pw = {};
+  const wp = {};
   for (let i = 0; i < pattern.length; ++i) {
-    if (!pmap[pattern[i]]) pmap[pattern[i]] = strings[i];
-    if (!smap[strings[i]]) smap[strings[i]] = pattern[i];
-    if (smap[strings[i]] !== pattern[i] || pmap[pattern[i]] !== strings[i]) {
+    if (!(pattern[i] in pw)) {
+      if (words[i] in wp) {
+        return false;
+      }
+      pw[pattern[i]] = words[i];
+      wp[words[i]] = pattern[i];
+    } else if (pw[pattern[i]] !== words[i]) {
       return false;
     }
   }

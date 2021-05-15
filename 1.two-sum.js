@@ -11,10 +11,12 @@
  * @return {number[]}
  */
 var twoSum = function (nums, target) {
+  const lookup = {};
   for (let i = 0; i < nums.length; ++i) {
-    for (let j = i + 1; j < nums.length; ++j) {
-      if (nums[i] + nums[j] === target) return [i, j];
+    if (nums[i] in lookup) {
+      return [lookup[nums[i]], i];
     }
+    lookup[target - nums[i]] = i;
   }
 };
 // @lc code=end

@@ -10,21 +10,20 @@
  * @return {string[]}
  */
 var summaryRanges = function (nums) {
-  if (nums.length === 0) return [];
-
-  let getRangeString = (begin, end) => {
-    return begin === end ? `${nums[begin]}` : `${nums[begin]}->${nums[end]}`;
-  };
-
-  let ranges = [];
-  let begin = 0;
-  for (let i = 1; i < nums.length; ++i) {
-    if (nums[i] > nums[i - 1] + 1) {
-      ranges.push(getRangeString(begin, i - 1));
-      begin = i;
+  const res = [];
+  let [start, end] = [0, 0];
+  for (let i = 1; i < nums.length + 1; ++i) {
+    if (i === nums.length || nums[i] !== nums[i - 1] + 1) {
+      if (start === end) {
+        res.push(`${nums[start]}`);
+      } else {
+        res.push(`${nums[start]}->${nums[end]}`);
+      }
+      start = end = i;
+    } else {
+      ++end;
     }
   }
-  ranges.push(getRangeString(begin, nums.length - 1));
-  return ranges;
+  return res;
 };
 // @lc code=end

@@ -10,7 +10,13 @@
  * @return {boolean}
  */
 var containsDuplicate = function (nums) {
-  let set = new Set(nums);
-  return set.size < nums.length;
+  const lookup = new Set();
+  for (const num of nums) {
+    if (lookup.has(num)) {
+      return true;
+    }
+    lookup.add(num);
+  }
+  return false;
 };
 // @lc code=end

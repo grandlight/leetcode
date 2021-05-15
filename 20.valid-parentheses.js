@@ -10,17 +10,15 @@
  * @return {boolean}
  */
 var isValid = function (s) {
-  if (s.length === 0) return true;
-
-  let stack = [];
-  for (let ch of s) {
-    if (ch === "(") stack.push(")");
-    else if (ch === "[") stack.push("]");
-    else if (ch === "{") stack.push("}");
-    else if (ch !== stack.pop()) {
+  let stk = [];
+  let lookup = { "(": ")", "[": "]", "{": "}" };
+  for (p of s) {
+    if (p in lookup) {
+      stk.push(p);
+    } else if (stk.length === 0 || lookup[stk.pop()] !== p) {
       return false;
     }
   }
-  return stack.length === 0;
+  return stk.length === 0;
 };
 // @lc code=end

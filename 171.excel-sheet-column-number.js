@@ -10,11 +10,10 @@
  * @return {number}
  */
 var titleToNumber = function (s) {
-  let sum = 0;
-  for (let ch of s) {
-    sum *= 26;
-    sum += ch.charCodeAt() - 64;
+  let res = 0;
+  for (const c of s) {
+    res = res * 26 + c.charCodeAt() - 64;
   }
-  return sum;
+  return res;
 };
 // @lc code=end

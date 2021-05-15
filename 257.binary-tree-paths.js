@@ -4,31 +4,32 @@
  * [257] Binary Tree Paths
  */
 
+function TreeNode(val, left, right) {
+  this.val = val === undefined ? 0 : val;
+  this.left = left === undefined ? null : left;
+  this.right = right === undefined ? null : right;
+}
+
 // @lc code=start
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
 /**
  * @param {TreeNode} root
  * @return {string[]}
  */
 var binaryTreePaths = function (root) {
-  let helper = (root, path) => {
-    if (!root) return;
-    path.push(root.val);
-    if (!root.left && !root.right) {
-      paths.push(path.join("->"));
+  const helper = (curr, node) => {
+    if (!node.left && !node.right) {
+      res.push(`${curr}${node.val}`);
+      return;
     }
-    helper(root.left, [...path]);
-    helper(root.right, [...path]);
+    if (node.left) {
+      helper(`${curr}${node.val}->`, node.left);
+    }
+    if (node.right) {
+      helper(`${curr}${node.val}->`, node.right);
+    }
   };
-  let paths = [];
-  helper(root, []);
-  return paths;
+  const res = [];
+  helper("", root);
+  return res;
 };
 // @lc code=end

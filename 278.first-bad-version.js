@@ -25,12 +25,14 @@ var solution = function (isBadVersion) {
    * @return {integer} The first bad version
    */
   return function (n) {
-    let left = 1;
-    let right = n;
-    let mid;
+    let [left, right] = [1, n];
     while (left < right) {
-      mid = Math.floor((left + right) / 2);
-      isBadVersion(mid) ? (right = mid) : (left = mid + 1);
+      const mid = left + Math.trunc((right - left) / 2);
+      if (isBadVersion(mid)) {
+        right = mid;
+      } else {
+        left = mid + 1;
+      }
     }
     return right;
   };

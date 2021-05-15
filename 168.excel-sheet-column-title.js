@@ -10,12 +10,11 @@
  * @return {string}
  */
 var convertToTitle = function (n) {
-  let title = "";
-
+  let res = "";
   while (n) {
-    title = String.fromCharCode(((n - 1) % 26) + 65) + title;
-    n = Math.floor((n - 1) / 26);
+    res = String.fromCharCode(((n - 1) % 26) + 65) + res;
+    n = Math.trunc((n - 1) / 26);
   }
-  return title;
+  return res;
 };
 // @lc code=end

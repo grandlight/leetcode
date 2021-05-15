@@ -10,6 +10,16 @@
  * @return {number}
  */
 var lengthOfLastWord = function (s) {
-  return s.trim().split(" ").pop().length;
+  let res = 0;
+  for (let i = s.length - 1; i >= 0; --i) {
+    if (s[i] === " ") {
+      if (res > 0) {
+        return res;
+      }
+    } else {
+      res += 1;
+    }
+  }
+  return res;
 };
 // @lc code=end

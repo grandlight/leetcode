@@ -12,16 +12,16 @@
  */
 var strStr = function (haystack, needle) {
   if (!needle || needle.length === 0) return 0;
-  if (!haystack || haystack.length === 0) return -1;
-
-  for (let h = 0; h < haystack.length; ++h) {
-    let n = 0;
-    while (n < needle.length) {
-      if (h + n >= haystack.length) return -1;
-      if (haystack[h + n] !== needle[n]) break;
-      ++n;
+  for (let i = 0; i < haystack.length; ++i) {
+    for (let j = 0; j < needle.length + 1; ++j) {
+      if (j === needle.length) {
+        return i;
+      } else if (i + j === haystack.length) {
+        return -1;
+      } else if (haystack[i + j] !== needle[j]) {
+        break;
+      }
     }
-    if (n === needle.length) return h;
   }
   return -1;
 };

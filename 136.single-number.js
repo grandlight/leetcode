@@ -10,6 +10,6 @@
  * @return {number}
  */
 var singleNumber = function (nums) {
-  return nums.reduce((prev, curr) => prev ^ curr);
+  return nums.reduce((accu, curr) => accu ^ curr);
 };
 // @lc code=end

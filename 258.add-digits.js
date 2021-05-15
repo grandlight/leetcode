@@ -10,7 +10,16 @@
  * @return {number}
  */
 var addDigits = function (num) {
-  if (num < 10) return num;
-  return num % 9 > 0 ? num % 9 : 9;
+  return num !== 0 ? ((num - 1) % 9) + 1 : 0;
+
+  while (num > 9) {
+    let sum = 0;
+    while (num) {
+      sum += num % 10;
+      num = Math.trunc(num / 10);
+    }
+    num = sum;
+  }
+  return num;
 };
 // @lc code=end

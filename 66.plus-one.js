@@ -11,14 +11,15 @@
  */
 var plusOne = function (digits) {
   for (let i = digits.length - 1; i >= 0; --i) {
-    if (++digits[i] < 10) {
-      break;
-    }
-    digits[i] = 0;
-    if (i === 0) {
-      digits.unshift(1);
+    if (digits[i] === 9) {
+      digits[i] = 0;
+    } else {
+      ++digits[i];
+      return digits;
     }
   }
+  digits[0] = 1;
+  digits.push(0);
   return digits;
 };
 // @lc code=end

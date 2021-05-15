@@ -11,12 +11,15 @@
  * @return {number[]}
  */
 var twoSum = function (numbers, target) {
-  let record = new Map();
-  for (let i in numbers) {
-    if (record.has(target - numbers[i])) {
-      return [record.get(target - numbers[i]), parseInt(i) + 1];
+  let [left, right] = [0, numbers.length - 1];
+  while (left < right) {
+    if (numbers[left] + numbers[right] < target) {
+      ++left;
+    } else if (numbers[left] + numbers[right] > target) {
+      --right;
+    } else {
+      return [left + 1, right + 1];
     }
-    record.set(numbers[i], parseInt(i) + 1);
   }
 };
 // @lc code=end

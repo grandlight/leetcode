@@ -10,10 +10,13 @@
  * @return {number}
  */
 var climbStairs = function (n) {
-  let steps = [1, 1, 0];
-  for (let i = 2; i <= n; ++i) {
-    steps[i % 3] = steps[(i - 1) % 3] + steps[(i - 2) % 3];
+  if (n < 3) {
+    return n;
   }
-  return steps[n % 3];
+  const dp = [1, 2].concat(new Array(n - 2));
+  for (let i = 2; i < n; ++i) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+  return dp[n - 1];
 };
 // @lc code=end

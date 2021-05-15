@@ -10,16 +10,14 @@
  * @return {number}
  */
 var reverse = function (x) {
-  let absX = Math.abs(x);
-  let ans = 0;
-  while (absX) {
-    ans = ans * 10 + (absX % 10);
-    absX = Math.floor(absX / 10);
+  let res = 0;
+  while (x != 0) {
+    if (Math.abs(res) > 214748364) {
+      return 0;
+    }
+    res = res * 10 + (x % 10);
+    x = Math.trunc(x / 10);
   }
-  ans = x < 0 ? -ans : ans;
-  if (ans < -1 * 2 ** 31 || 2 ** 31 - 1 < ans) {
-    return 0;
-  }
-  return ans;
+  return res;
 };
 // @lc code=end

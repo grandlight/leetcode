@@ -11,13 +11,19 @@
  * @return {boolean}
  */
 var isAnagram = function (s, t) {
-  let count = {};
-  for (let ch of s) {
-    !count[ch] ? (count[ch] = 1) : ++count[ch];
+  if (s.length !== t.length) {
+    return false;
   }
-  for (let ch of t) {
-    if (!count[ch] || --count[ch] < 0) return false;
+  const count = {};
+  for (const c of s) {
+    count[c] ? ++count[c] : (count[c] = 1);
   }
-  return Object.values(count).every((n) => n === 0);
+  for (const c of t) {
+    if (!count[c]) {
+      return false;
+    }
+    --count[c];
+  }
+  return true;
 };
 // @lc code=end

@@ -10,11 +10,11 @@
  * @return {number} - a positive integer
  */
 var reverseBits = function (n) {
-  let reversed = 0;
+  let res = 0;
   for (let i = 0; i < 32; ++i) {
-    reversed = reversed * 2 + (n & 1);
-    n = n >> 1;
+    res = res * 2 + (n & 1);
+    n >>= 1;
   }
-  return reversed;
+  return res;
 };
 // @lc code=end

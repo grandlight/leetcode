@@ -11,17 +11,19 @@
  * @return {boolean}
  */
 var isIsomorphic = function (s, t) {
-  if (s.length !== t.length) return false;
-  let sMap = {};
-  let tMap = {};
+  if (s.length !== t.length) {
+    return false;
+  }
+  const st = {};
+  const ts = {};
   for (let i = 0; i < s.length; ++i) {
-    if (!sMap[s[i]]) {
-      sMap[s[i]] = t[i];
-    }
-    if (!tMap[t[i]]) {
-      tMap[t[i]] = s[i];
-    }
-    if (sMap[s[i]] !== t[i] || tMap[t[i]] != s[i]) {
+    if (!(s[i] in st)) {
+      if (t[i] in ts) {
+        return false;
+      }
+      st[s[i]] = t[i];
+      ts[t[i]] = s[i];
+    } else if (st[s[i]] !== t[i]) {
       return false;
     }
   }

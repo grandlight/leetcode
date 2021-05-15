@@ -9,8 +9,8 @@
  * Initialize your data structure here.
  */
 var MyQueue = function () {
-  this.stack = [];
-  this.tmp = [];
+  this.stk1 = [];
+  this.stk2 = [];
 };
 
 /**
@@ -19,7 +19,7 @@ var MyQueue = function () {
  * @return {void}
  */
 MyQueue.prototype.push = function (x) {
-  this.stack.push(x);
+  this.stk1.push(x);
 };
 
 /**
@@ -27,14 +27,8 @@ MyQueue.prototype.push = function (x) {
  * @return {number}
  */
 MyQueue.prototype.pop = function () {
-  while (this.stack.length > 1) {
-    this.tmp.push(this.stack.pop());
-  }
-  let pop = this.stack.pop();
-  while (this.tmp.length) {
-    this.stack.push(this.tmp.pop());
-  }
-  return pop;
+  this.peek();
+  return this.stk2.pop();
 };
 
 /**
@@ -42,15 +36,12 @@ MyQueue.prototype.pop = function () {
  * @return {number}
  */
 MyQueue.prototype.peek = function () {
-  while (this.stack.length > 1) {
-    this.tmp.push(this.stack.pop());
+  if (!this.stk2.length) {
+    while (this.stk1.length) {
+      this.stk2.push(this.stk1.pop());
+    }
   }
-  let pop = this.stack.pop();
-  this.stack.push(pop);
-  while (this.tmp.length) {
-    this.stack.push(this.tmp.pop());
-  }
-  return pop;
+  return this.stk2[this.stk2.length - 1];
 };
 
 /**
@@ -58,7 +49,7 @@ MyQueue.prototype.peek = function () {
  * @return {boolean}
  */
 MyQueue.prototype.empty = function () {
-  return this.stack.length === 0;
+  return !this.stk1.length && !this.stk2.length;
 };
 
 /**

@@ -10,14 +10,13 @@
  * @return {number[]}
  */
 var getRow = function (rowIndex) {
-  if (rowIndex === 0) return [1];
-  let ans = [1, 1];
-  for (let i = 1; i < rowIndex; ++i) {
+  const res = new Array(rowIndex + 1).fill(0);
+  res[0] = 1;
+  for (let i = 1; i < rowIndex + 1; ++i) {
     for (let j = i; j > 0; --j) {
-      ans[j] += ans[j - 1];
+      res[j] += res[j - 1];
     }
-    ans[i + 1] = 1;
   }
-  return ans;
+  return res;
 };
 // @lc code=end

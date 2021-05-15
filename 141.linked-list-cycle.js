@@ -4,32 +4,25 @@
  * [141] Linked List Cycle
  */
 
-// @lc code=start
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
+function ListNode(val) {
+  this.val = val;
+  this.next = null;
+}
 
+// @lc code=start
 /**
  * @param {ListNode} head
  * @return {boolean}
  */
 var hasCycle = function (head) {
-  if (!head || !head.next || !head.next.next) {
-    return false;
-  }
-  let slow = head.next;
-  let fast = head.next.next;
-
+  let slow = head;
+  let fast = head;
   while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
     if (slow === fast) {
       return true;
     }
-    slow = slow.next;
-    fast = fast.next.next;
   }
   return false;
 };

@@ -4,26 +4,23 @@
  * [160] Intersection of Two Linked Lists
  */
 
-// @lc code=start
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
+function ListNode(val) {
+  this.val = val;
+  this.next = null;
+}
 
+// @lc code=start
 /**
  * @param {ListNode} headA
  * @param {ListNode} headB
  * @return {ListNode}
  */
 var getIntersectionNode = function (headA, headB) {
-  var currA = headA;
-  var currB = headB;
+  let currA = headA;
+  let currB = headB;
   while (currA !== currB) {
-    currA = !currA ? headB : currA.next;
-    currB = !currB ? headA : currB.next;
+    currA = currA ? currA.next : headB;
+    currB = currB ? currB.next : headA;
   }
   return currA;
 };

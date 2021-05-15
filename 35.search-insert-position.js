@@ -11,11 +11,17 @@
  * @return {number}
  */
 var searchInsert = function (nums, target) {
-  for (let i = 0; i < nums.length; ++i) {
-    if (nums[i] >= target) {
-      return i;
+  let [left, right] = [0, nums.length];
+  while (left < right) {
+    let mid = left + Math.trunc((right - left) / 2);
+    if (nums[mid] === target) {
+      return mid;
+    } else if (nums[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid;
     }
   }
-  return nums.length;
+  return right;
 };
 // @lc code=end

@@ -4,15 +4,12 @@
  * [235] Lowest Common Ancestor of a Binary Search Tree
  */
 
-// @lc code=start
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
+function TreeNode(val) {
+  this.val = val;
+  this.left = this.right = null;
+}
 
+// @lc code=start
 /**
  * @param {TreeNode} root
  * @param {TreeNode} p

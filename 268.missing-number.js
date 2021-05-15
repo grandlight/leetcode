@@ -10,6 +10,10 @@
  * @return {number}
  */
 var missingNumber = function (nums) {
-  return (nums.length * (nums.length + 1)) / 2 - nums.reduce((a, b) => a + b);
+  let res = 0;
+  for (let i = 0; i < nums.length; ++i) {
+    res ^= (i + 1) ^ nums[i];
+  }
+  return res;
 };
 // @lc code=end

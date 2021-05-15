@@ -11,22 +11,21 @@
  * @return {string}
  */
 var addBinary = function (a, b) {
-  let sum = a.split("").map((ch) => parseInt(ch));
-  let tmp = b.split("").map((ch) => parseInt(ch));
-  if (tmp.length > sum.length) {
-    [sum, tmp] = [tmp, sum];
-  }
-  for (let i = tmp.length - 1, j = sum.length - 1; i >= 0; --i, --j) {
-    sum[j] += tmp[i];
-  }
-
-  for (let i = sum.length - 1; i >= 0; --i) {
-    if (sum[i] < 2) {
-      continue;
+  let res = "";
+  let [value, carry] = [0, 0];
+  let [i, j] = [a.length - 1, b.length - 1];
+  while (i > -1 || j > -1) {
+    value = carry;
+    if (i > -1) {
+      value += parseInt(a[i--]);
     }
-    sum[i] %= 2;
-    i > 0 ? ++sum[i - 1] : sum.unshift(1);
+    if (j > -1) {
+      value += parseInt(b[j--]);
+    }
+    carry = Math.trunc(value / 2);
+    value %= 2;
+    res = `${value}${res}`;
   }
-  return sum.join("");
+  return carry ? `1${res}` : res;
 };
 // @lc code=end

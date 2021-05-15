@@ -10,21 +10,16 @@
  * @return {boolean}
  */
 var isHappy = function (n) {
-  let sumOfSquares = (num) => {
+  const lookup = {};
+  while (n !== 1 && !(n in lookup)) {
     let sum = 0;
-    while (num) {
-      sum += (num % 10) ** 2;
-      num = Math.floor(num / 10);
+    lookup[n] = true;
+    while (n > 0) {
+      sum += (n % 10) ** 2;
+      n = Math.trunc(n / 10);
     }
-    return sum;
-  };
-
-  let appear = {};
-  while (!appear[n]) {
-    appear[n] = true;
-    n = sumOfSquares(n);
-    if (n === 1) return true;
+    n = sum;
   }
-  return false;
+  return n === 1;
 };
 // @lc code=end

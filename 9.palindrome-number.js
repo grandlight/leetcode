@@ -11,14 +11,12 @@
  */
 var isPalindrome = function (x) {
   if (x < 0) return false;
-  let digits = [];
-  while (x) {
-    digits.push(x % 10);
-    x = Math.floor(x / 10);
+  let rev = 0;
+  let xx = x;
+  while (xx) {
+    rev = rev * 10 + (xx % 10);
+    xx = Math.trunc(xx / 10);
   }
-  for (let i = 0; i < digits.length / 2; ++i) {
-    if (digits[i] !== digits[digits.length - 1 - i]) return false;
-  }
-  return true;
+  return rev === x;
 };
 // @lc code=end

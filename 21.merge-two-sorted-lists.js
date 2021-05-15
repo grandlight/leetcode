@@ -4,31 +4,22 @@
  * [21] Merge Two Sorted Lists
  */
 
-// @lc code=start
-/**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @return {ListNode}
- */
-
 function ListNode(val, next) {
   this.val = val === undefined ? 0 : val;
   this.next = next === undefined ? null : next;
 }
 
+// @lc code=start
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
 var mergeTwoLists = function (l1, l2) {
-  let head = new ListNode(-1, null);
-  let curr = head;
-
+  const dummy = new ListNode(-1);
+  let curr = dummy;
   while (l1 && l2) {
-    if (l1.val <= l2.val) {
+    if (l1.val < l2.val) {
       curr.next = l1;
       l1 = l1.next;
     } else {
@@ -37,9 +28,7 @@ var mergeTwoLists = function (l1, l2) {
     }
     curr = curr.next;
   }
-  if (l1) curr.next = l1;
-  if (l2) curr.next = l2;
-
-  return head.next;
+  curr.next = l1 || l2;
+  return dummy.next;
 };
 // @lc code=end

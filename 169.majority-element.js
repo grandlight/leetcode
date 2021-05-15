@@ -10,13 +10,18 @@
  * @return {number}
  */
 var majorityElement = function (nums) {
-  let count = {};
-
-  for (let n of nums) {
-    count[n] = count[n] + 1 || 1;
-    if (count[n] > Math.floor(nums.length / 2)) {
-      return n;
+  let res = 0;
+  let cnt = 0;
+  for (const num of nums) {
+    if (num === res) {
+      ++cnt;
+    } else if (cnt === 0) {
+      res = num;
+      cnt = 1;
+    } else {
+      cnt -= 1;
     }
   }
+  return res;
 };
 // @lc code=end

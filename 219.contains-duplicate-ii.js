@@ -11,12 +11,12 @@
  * @return {boolean}
  */
 var containsNearbyDuplicate = function (nums, k) {
-  let last = {};
-  for (let i in nums) {
-    if (i - last[nums[i]] <= k) {
+  const lookup = {};
+  for (let i = 0; i < nums.length; ++i) {
+    if (nums[i] in lookup && i - lookup[nums[i]] <= k) {
       return true;
     }
-    last[nums[i]] = i;
+    lookup[nums[i]] = i;
   }
   return false;
 };

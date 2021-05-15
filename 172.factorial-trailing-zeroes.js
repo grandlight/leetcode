@@ -10,10 +10,11 @@
  * @return {number}
  */
 var trailingZeroes = function (n) {
-  let count = 0;
-  for (let i = 5; i <= n; i *= 5) {
-    count += Math.floor(n / i);
+  let res = 0;
+  while (n > 0) {
+    n = Math.trunc(n / 5);
+    res += n;
   }
-  return count;
+  return res;
 };
 // @lc code=end

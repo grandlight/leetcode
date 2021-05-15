@@ -10,12 +10,12 @@
  * @return {number}
  */
 var maxSubArray = function (nums) {
-  let sum = 0;
-  let max = -Infinity;
-  for (let n of nums) {
-    sum = Math.max(n, sum + n);
-    max = Math.max(sum, max);
+  let res = -Infinity;
+  let cur = 0;
+  for (const num of nums) {
+    cur = Math.max(cur + num, num);
+    res = Math.max(res, cur);
   }
-  return max;
+  return res;
 };
 // @lc code=end

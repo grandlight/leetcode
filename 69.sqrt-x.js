@@ -11,12 +11,14 @@
  */
 var mySqrt = function (x) {
   if (x <= 1) return x;
-  let left = 0;
-  let right = x;
+  let [left, right] = [0, x];
   while (left < right) {
-    let mid = Math.floor((left + right) / 2);
-    if (mid * mid <= x) left = mid + 1;
-    else right = mid;
+    let mid = left + Math.trunc((right - left) / 2);
+    if (mid <= x / mid) {
+      left = mid + 1;
+    } else {
+      right = mid;
+    }
   }
   return right - 1;
 };

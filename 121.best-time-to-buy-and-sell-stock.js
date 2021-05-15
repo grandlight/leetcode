@@ -10,12 +10,12 @@
  * @return {number}
  */
 var maxProfit = function (prices) {
-  let min = Infinity;
-  let profit = 0;
-  for (let price of prices) {
-    min = Math.min(min, price);
-    profit = Math.max(profit, price - min);
+  let minPrice = Infinity;
+  let maxProfit = 0;
+  for (const price of prices) {
+    minPrice = Math.min(minPrice, price);
+    maxProfit = Math.max(maxProfit, price - minPrice);
   }
-  return profit;
+  return maxProfit;
 };
 // @lc code=end
