@@ -10,18 +10,13 @@
  * @return {number[][]}
  */
 var subsets = function (nums) {
-  let res = [];
-
-  let dfs = (curr, idx) => {
-    res.push(curr.slice());
-    for (let i = idx; i < nums.length; ++i) {
-      curr.push(nums[i]);
-      dfs(curr, i + 1);
-      curr.pop();
+  const res = [[]];
+  for (let i = 0; i < nums.length; ++i) {
+    const len = res.length;
+    for (let j = 0; j < len; ++j) {
+      res.push(res[j].concat([nums[i]]));
     }
-  };
-
-  dfs([], 0);
+  }
   return res;
 };
 // @lc code=end

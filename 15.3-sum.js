@@ -10,32 +10,31 @@
  * @return {number[][]}
  */
 var threeSum = function (nums) {
-  if (nums.length < 3) return [];
-  nums = nums.sort((a, b) => a - b);
-
-  let target = 0;
-  let triplets = [];
+  const res = [];
+  nums.sort((a, b) => a - b);
   for (let i = 0; i < nums.length - 2; ++i) {
-    if (nums[i] > target) {
-      break;
-    } else if (i > 0 && nums[i] === nums[i - 1]) {
+    if (i > 0 && nums[i] === nums[i - 1]) {
       continue;
     }
-
-    let j = i + 1;
-    let k = nums.length - 1;
-    while (j < k) {
-      let sum = nums[i] + nums[j] + nums[k];
-      if (sum === target) {
-        triplets.push([nums[i], nums[j], nums[k]]);
-        // at most 2 duplicate (nums[i], nums[j])
-        while (nums[++j] === nums[j - 1]);
-        while (nums[--k] === nums[k + 1]);
+    const target = -nums[i];
+    let left = i + 1;
+    let right = nums.length - 1;
+    while (left < right) {
+      if (nums[left] + nums[right] < target) {
+        ++left;
+      } else if (nums[left] + nums[right] > target) {
+        --right;
       } else {
-        sum < target ? ++j : --k;
+        res.push([nums[i], nums[left++], nums[right--]]);
+        while (left < right && nums[left] === nums[left - 1]) {
+          ++left;
+        }
+        while (left < right && nums[right] === nums[right + 1]) {
+          --right;
+        }
       }
     }
   }
-  return triplets;
+  return res;
 };
 // @lc code=end

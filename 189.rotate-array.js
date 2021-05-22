@@ -11,12 +11,20 @@
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 var rotate = function (nums, k) {
-  while (k--) {
-    let tmp = nums[nums.length - 1];
-    for (let i = nums.length - 1; i > 0; --i) {
-      nums[i] = nums[i - 1];
+  const reverse = (i, j) => {
+    while (i < j) {
+      const tmp = nums[i];
+      nums[i++] = nums[j];
+      nums[j--] = tmp;
     }
-    nums[0] = tmp;
+  };
+  const len = nums.length;
+  if (!len || k % len === 0) {
+    return;
   }
+  k %= len;
+  reverse(0, len - 1);
+  reverse(0, k - 1);
+  reverse(k, len - 1);
 };
 // @lc code=end

@@ -14,9 +14,14 @@ var maxArea = function (height) {
   let i = 0;
   let j = height.length - 1;
   while (i < j) {
-    let h = Math.min(height[i], height[j]);
+    const h = Math.min(height[i], height[j]);
     max = Math.max(max, h * (j - i));
-    height[i] > height[j] ? --j : ++i;
+    while (i < j && height[i] === h) {
+      ++i;
+    }
+    while (i < j && height[j] === h) {
+      --j;
+    }
   }
   return max;
 };

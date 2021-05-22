@@ -10,19 +10,26 @@
  * @return {number}
  */
 var lengthOfLIS = function (nums) {
-  let dp = [];
-  for (let num of nums) {
-    let left = 0;
-    let right = dp.length;
-    while (left < right) {
-      let mid = Math.floor((left + right) / 2);
-      if (dp[mid] < num) {
-        left = mid + 1;
-      } else right = mid;
+  const res = [nums[0]];
+  for (const num of nums) {
+    if (num < res[0]) {
+      res[0] = num;
+    } else if (num > res[res.length - 1]) {
+      res.push(num);
+    } else {
+      let left = 0;
+      let right = res.length;
+      while (left < right) {
+        const mid = left + Math.trunc((right - left) / 2);
+        if (res[mid] < num) {
+          left = mid + 1;
+        } else {
+          right = mid;
+        }
+      }
+      res[right] = num;
     }
-    if (right > dp.length) dp.push(num);
-    else dp[right] = num;
   }
-  return dp.length;
+  return res.length;
 };
 // @lc code=end

@@ -10,16 +10,15 @@
  * @return {number[]}
  */
 var productExceptSelf = function (nums) {
-  let prod = new Array(nums.length).fill(1);
-
+  const leftProd = Array(nums.length).fill(1);
   for (let i = 1; i < nums.length; ++i) {
-    prod[i] = prod[i - 1] * nums[i - 1];
+    leftProd[i] = leftProd[i - 1] * nums[i - 1];
   }
-  let tmp = 1; // product of right side
-  for (let i = nums.length - 1; i >= 0; --i) {
-    prod[i] *= tmp;
-    tmp *= nums[i];
+  let rightProd = 1;
+  for (let i = nums.length - 2; i > -1; --i) {
+    rightProd *= nums[i + 1];
+    leftProd[i] *= rightProd;
   }
-  return prod;
+  return leftProd;
 };
 // @lc code=end

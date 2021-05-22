@@ -9,35 +9,8 @@
  * @param {number} capacity
  */
 var LRUCache = function (capacity) {
-  this.capacity = capacity;
   this.cache = new Map();
-  this.head = new Node(0, 0);
-  this.tail = new Node(0, 0);
-  this.head.next = this.tail;
-  this.tail.prev = this.head;
-
-  this.insertHead = (node) => {
-    let h = this.head.next;
-    this.head.next = node;
-    node.prev = this.head;
-    node.next = h;
-    h.prev = node;
-  };
-
-  this.removeTail = () => {
-    let node = this.tail.prev;
-    this.remove(node);
-    this.cache.delete(node.key);
-  };
-
-  this.remove = (node) => {
-    let p = node.prev;
-    let n = node.next;
-    p.next = n;
-    n.prev = p;
-    node.prev = null;
-    node.next = null;
-  };
+  this.capacity = capacity;
 };
 
 /**
@@ -45,11 +18,13 @@ var LRUCache = function (capacity) {
  * @return {number}
  */
 LRUCache.prototype.get = function (key) {
-  if (!this.cache.has(key)) return -1;
-  let node = this.cache.get(key);
-  this.remove(node);
-  this.insertHead(node);
-  return node.val;
+  if (!this.cache.has(key)) {
+    return -1;
+  }
+  const val = this.cache.get(key);
+  this.cache.delete(key);
+  this.cache.set(key, val);
+  return val;
 };
 
 /**
@@ -59,26 +34,11 @@ LRUCache.prototype.get = function (key) {
  */
 LRUCache.prototype.put = function (key, value) {
   if (this.cache.has(key)) {
-    this.remove(this.cache.get(key));
+    this.cache.delete(key);
+  } else if (this.cache.size === this.capacity) {
+    this.cache.delete(this.cache.keys().next().value);
   }
-  let node = new Node(key, value);
-  this.cache.set(key, node);
-  this.insertHead(node);
-  if (this.cache.size > this.capacity) {
-    this.removeTail();
-  }
-};
-
-/**
- * @param {number} key
- * @param {number} val
- * @return {void}
- */
-var Node = function (key, val) {
-  this.key = key;
-  this.val = val;
-  this.prev = null;
-  this.next = null;
+  this.cache.set(key, value);
 };
 
 /**

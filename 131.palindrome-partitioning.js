@@ -10,28 +10,30 @@
  * @return {string[][]}
  */
 var partition = function (s) {
-  let res = [];
-
-  let isPalindrome = (left, right) => {
+  const isPalindrome = (left, right) => {
     while (left < right) {
-      if (s[left++] !== s[right--]) return false;
+      if (s[left++] !== s[right--]) {
+        return false;
+      }
     }
     return true;
   };
 
-  let dfs = (curr, idx) => {
+  const helper = (cur, idx) => {
     if (idx === s.length) {
-      res.push(curr.slice());
+      res.push(cur.slice());
       return;
     }
-    for (let i = idx; i < s.length; ++i) {
-      if (isPalindrome(idx, i)) {
-        dfs(curr.concat(s.slice(idx, i + 1)), i + 1);
+    for (let end = idx + 1; end < s.length + 1; ++end) {
+      if (isPalindrome(idx, end - 1)) {
+        cur.push(s.slice(idx, end));
+        helper(cur, end);
+        cur.pop();
       }
     }
   };
-
-  dfs([], 0);
+  const res = [];
+  helper([], 0);
   return res;
 };
 // @lc code=end

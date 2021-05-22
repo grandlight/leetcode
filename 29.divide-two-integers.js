@@ -11,22 +11,22 @@
  * @return {number}
  */
 var divide = function (dividend, divisor) {
-  if (dividend === -2147483648 && divisor === -1) return 2147483647;
-  let m = Math.abs(dividend);
-  let n = Math.abs(divisor);
-  let sign = (dividend < 0) ^ (divisor < 0) ? -1 : 1;
-  if (n === 1) return sign * m;
-  let res = 0;
-  while (m >= n) {
-    let nProd = n;
-    let nCount = 1;
-    while (m >> 1 >= nProd) {
-      nProd <<= 1;
-      nCount <<= 1;
-    }
-    m -= nProd;
-    res += nCount;
+  if (dividend === -2147483648 && divisor === -1) {
+    return 2147483647;
   }
-  return sign * res;
+  let res = 0;
+  let dvd = Math.abs(dividend);
+  let dvs = Math.abs(divisor);
+  while (dvd >= dvs) {
+    let tmpDvs = dvs;
+    let cntDvs = 1;
+    while (dvd >> 1 >= tmpDvs) {
+      tmpDvs <<= 1;
+      cntDvs <<= 1;
+    }
+    dvd -= tmpDvs;
+    res += cntDvs;
+  }
+  return (dividend < 0) ^ (divisor < 0) ? -res : res;
 };
 // @lc code=end

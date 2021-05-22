@@ -10,19 +10,24 @@
  * @return {string[]}
  */
 var generateParenthesis = function (n) {
-  let result = [];
-
-  let dfs = (left, right, curr) => {
-    if (!left && !right) {
-      result.push(curr);
+  const helper = (cur, left, right) => {
+    if (left > right) {
       return;
-    } else if (left > right) return;
-
-    if (left) dfs(left - 1, right, curr + "(");
-    if (right) dfs(left, right - 1, curr + ")");
+    }
+    if (left === 0 && right === 0) {
+      res.push(cur);
+      return;
+    }
+    if (left > 0) {
+      helper(cur + "(", left - 1, right);
+    }
+    if (right > 0) {
+      helper(cur + ")", left, right - 1);
+    }
   };
 
-  dfs(n, n, "");
-  return result;
+  const res = [];
+  helper("", n, n);
+  return res;
 };
 // @lc code=end

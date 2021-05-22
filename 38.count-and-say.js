@@ -10,18 +10,18 @@
  * @return {string}
  */
 var countAndSay = function (n) {
-  let cas = "1";
-  while (--n) {
-    let casArray = cas.split("");
-    cas = "";
-    let count = 1;
-    for (let i = 0; i < casArray.length; ++i) {
-      if (casArray[i] !== casArray[i + 1]) {
-        cas += `${count}${casArray[i]}`;
-        count = 1;
-      } else ++count;
+  let res = "1";
+  for (let idx = 1; idx < n; ++idx) {
+    let cur = "";
+    for (let i = 0; i < res.length; ++i) {
+      let cnt = 1;
+      while (i + 1 < res.length && res[i] === res[i + 1]) {
+        ++cnt, ++i;
+      }
+      cur += `${cnt}${res[i]}`;
     }
+    res = cur;
   }
-  return cas;
+  return res;
 };
 // @lc code=end

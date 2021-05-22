@@ -10,25 +10,24 @@
  * @return {number[][]}
  */
 var permute = function (nums) {
-  let visited = new Array(nums.length).fill(false);
-  let res = [];
-
-  let dfs = (curr, level) => {
-    if (level === nums.length) {
-      res.push(curr.slice());
+  const helper = (cur, idx) => {
+    if (idx === nums.length) {
+      res.push(cur.slice());
       return;
     }
     for (let i = 0; i < nums.length; ++i) {
-      if (visited[i]) continue;
-      visited[i] = true;
-      curr.push(nums[i]);
-      dfs(curr, level + 1);
-      curr.pop();
-      visited[i] = false;
+      if (!visited[i]) {
+        visited[i] = true;
+        cur.push(nums[i]);
+        helper(cur, idx + 1);
+        cur.pop();
+        visited[i] = false;
+      }
     }
   };
-
-  dfs([], 0);
+  const res = [];
+  const visited = new Array(nums.length).fill(false);
+  helper([], 0);
   return res;
 };
 // @lc code=end

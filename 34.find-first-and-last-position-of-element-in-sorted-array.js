@@ -11,19 +11,23 @@
  * @return {number[]}
  */
 var searchRange = function (nums, target) {
-  let firstGreaterEqual = (t) => {
-    let left = 0;
-    let right = nums.length;
+  const helper = (t) => {
+    let [left, right] = [0, nums.length];
     while (left < right) {
-      let mid = Math.floor((left + right) / 2);
-      if (t <= nums[mid]) right = mid;
-      else left = mid + 1;
+      const mid = left + Math.trunc((right - left) / 2);
+      if (nums[mid] < t) {
+        left = mid + 1;
+      } else {
+        right = mid;
+      }
     }
     return right;
   };
 
-  let start = firstGreaterEqual(target);
-  if (nums[start] !== target) return [-1, -1];
-  return [start, firstGreaterEqual(target + 1) - 1];
+  const start = helper(target);
+  if (start === nums.length || nums[start] !== target) {
+    return [-1, -1];
+  }
+  return [start, helper(target + 1) - 1];
 };
 // @lc code=end

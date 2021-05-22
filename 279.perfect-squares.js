@@ -10,20 +10,13 @@
  * @return {number}
  */
 var numSquares = function (n) {
-  let len = 0;
-  let queue = [n];
-
-  while (queue.length > 0) {
-    for (let q = queue.length; q > 0; --q) {
-      let num = queue.shift();
-      if (num === 0) return len;
-      for (let i = 1; i * i <= num; ++i) {
-        queue.push(num - i * i);
-      }
+  const dp = Array(n + 1).fill(Infinity);
+  dp[0] = 0;
+  for (let i = 0; i < n + 1; ++i) {
+    for (let j = 1; i + j * j < n + 1; ++j) {
+      dp[i + j * j] = Math.min(dp[i + j * j], dp[i] + 1);
     }
-    ++len;
   }
-
-  return len;
+  return dp[n];
 };
 // @lc code=end

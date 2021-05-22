@@ -11,31 +11,27 @@
  * @return {boolean}
  */
 var canFinish = function (numCourses, prerequisites) {
-  let courses = new Array(numCourses);
+  const inDegree = Array(numCourses).fill(0);
+  for (const pre of prerequisites) {
+    ++inDegree[pre[0]];
+  }
+  const q = [];
   for (let i = 0; i < numCourses; ++i) {
-    courses[i] = { next: [], pren: 0 };
+    if (inDegree[i] === 0) {
+      q.push(i);
+    }
   }
-  for (let pre of prerequisites) {
-    courses[pre[1]].next.push(pre[0]);
-    courses[pre[0]].pren++;
-  }
-
-  let queue = [];
-  for (let i = 0; i < numCourses; ++i) {
-    if (courses[i].pren === 0) queue.push(i);
-  }
-  while (queue.length > 0) {
-    let q = queue.shift();
-    for (let next of courses[q].next) {
-      if (--courses[next].pren === 0) {
-        queue.push(next);
+  while (q.length) {
+    const course = q.shift();
+    for (const pre of prerequisites) {
+      if (course === pre[1]) {
+        --inDegree[pre[0]];
+        if (inDegree[pre[0]] === 0) {
+          q.push(pre[0]);
+        }
       }
     }
   }
-
-  for (let course of courses) {
-    if (course.pren !== 0) return false;
-  }
-  return true;
+  return inDegree.every((x) => x === 0);
 };
 // @lc code=end

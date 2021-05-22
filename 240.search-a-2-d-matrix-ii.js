@@ -11,13 +11,13 @@
  * @return {boolean}
  */
 var searchMatrix = function (matrix, target) {
-  if (!matrix.length || !matrix[0].length) return false;
-  let i = matrix.length - 1;
-  let j = 0;
-  while (i >= 0 && j < matrix[0].length) {
-    if (matrix[i][j] === target) return true;
-    else if (matrix[i][j] > target) --i;
-    else ++j;
+  let i = 0;
+  let j = matrix[0].length - 1;
+  while (i < matrix.length && j >= 0) {
+    if (matrix[i][j] === target) {
+      return true;
+    }
+    matrix[i][j] > target ? --j : ++i;
   }
   return false;
 };

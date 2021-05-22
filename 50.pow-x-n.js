@@ -12,8 +12,10 @@
  */
 var myPow = function (x, n) {
   let res = 1;
-  for (let i = Math.abs(n); i !== 0; i = Math.floor(i / 2)) {
-    if (i % 2 !== 0) res *= x;
+  for (let i = Math.abs(n); i !== 0; i = Math.trunc(i / 2)) {
+    if (i % 2 !== 0) {
+      res *= x;
+    }
     x *= x;
   }
   return n < 0 ? 1 / res : res;

@@ -10,21 +10,28 @@
  * @return {string[]}
  */
 var letterCombinations = function (digits) {
-  if (digits.length === 0) return [];
-  let map = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"];
-  let combs = [];
-
-  let dfs = (comb, i) => {
-    if (i === digits.length) {
-      combs.push(comb);
+  const helper = (cur, idx) => {
+    if (idx === digits.length) {
+      res.push(cur.slice());
       return;
     }
-    for (let ch of map[digits[i]]) {
-      dfs(comb + ch, i + 1);
+    const letters = lookup[digits[idx]];
+    for (const letter of letters) {
+      helper(cur + letter, idx + 1);
     }
   };
-
-  dfs("", 0);
-  return combs;
+  const lookup = {
+    2: "abc",
+    3: "def",
+    4: "ghi",
+    5: "jkl",
+    6: "mno",
+    7: "pqrs",
+    8: "tuv",
+    9: "wxyz",
+  };
+  const res = [];
+  helper("", 0);
+  return digits.length ? res : [];
 };
 // @lc code=end

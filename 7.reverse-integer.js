@@ -11,7 +11,7 @@
  */
 var reverse = function (x) {
   let res = 0;
-  while (x != 0) {
+  while (x !== 0) {
     if (Math.abs(res) > 214748364) {
       return 0;
     }
