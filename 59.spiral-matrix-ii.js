@@ -10,27 +10,40 @@
  * @return {number[][]}
  */
 var generateMatrix = function (n) {
-  let spiral = Array(n)
-    .fill(null)
-    .map((arr) => Array(n).fill(null));
+  const res = Array(n)
+    .fill()
+    .map(() => Array(n));
+  let val = 1;
+  let [left, right, top, bottom] = [0, n - 1, 0, n - 1];
+  while (left <= right && top <= bottom) {
+    for (let i = left; i < right + 1; ++i) {
+      res[top][i] = val++;
+    }
+    if (++top > bottom) {
+      break;
+    }
 
-  // set boundary
-  let val = 1,
-    top = 0,
-    right = n - 1,
-    bottom = n - 1,
-    left = 0;
+    for (let i = top; i < bottom + 1; ++i) {
+      res[i][right] = val++;
+    }
+    if (--right < left) {
+      break;
+    }
 
-  while (1) {
-    for (let i = left; i <= right; ++i) spiral[top][i] = val++;
-    if (++top > bottom) break;
-    for (let i = top; i <= bottom; ++i) spiral[i][right] = val++;
-    if (--right < left) break;
-    for (let i = right; i >= left; --i) spiral[bottom][i] = val++;
-    if (--bottom < top) break;
-    for (let i = bottom; i >= top; --i) spiral[i][left] = val++;
-    if (++left > right) break;
+    for (let i = right; i > left - 1; --i) {
+      res[bottom][i] = val++;
+    }
+    if (--bottom < top) {
+      break;
+    }
+
+    for (let i = bottom; i > top - 1; --i) {
+      res[i][left] = val++;
+    }
+    if (++left > right) {
+      break;
+    }
   }
-  return spiral;
+  return res;
 };
 // @lc code=end

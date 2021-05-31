@@ -11,24 +11,20 @@
  * @return {boolean}
  */
 var searchMatrix = function (matrix, target) {
-  if (!matrix.length || !matrix[0].length) return false;
+  const m = matrix.length;
+  const n = matrix[0].length;
   let left = 0;
-  let right = matrix.length;
+  let right = m * n;
   while (left < right) {
-    let mid = Math.floor((left + right) / 2);
-    if (target < matrix[mid][0]) {
+    const mid = left + Math.trunc((right - left) / 2);
+    const val = matrix[Math.trunc(mid / n)][mid % n];
+    if (val === target) {
+      return true;
+    } else if (val < target) {
+      left = mid + 1;
+    } else {
       right = mid;
-    } else left = mid + 1;
-  }
-  let row = right === 0 ? right : right - 1;
-  left = 0;
-  right = matrix[row].length;
-  while (left < right) {
-    let mid = Math.floor((left + right) / 2);
-    if (target === matrix[row][mid]) return true;
-    if (target < matrix[row][mid]) {
-      right = mid;
-    } else left = mid + 1;
+    }
   }
   return false;
 };

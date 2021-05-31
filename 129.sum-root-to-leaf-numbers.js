@@ -16,16 +16,16 @@ function TreeNode(val, left, right) {
  * @return {number}
  */
 var sumNumbers = function (root) {
-  let dfs = (node, total) => {
-    if (!node) return 0;
-
-    total = total * 10 + node.val;
-    if (!node.left && !node.right) {
-      return total;
+  const helper = (cur, node) => {
+    if (!node) {
+      return 0;
     }
-    return dfs(node.left, total) + dfs(node.right, total);
+    cur = cur * 10 + node.val;
+    if (!node.left && !node.right) {
+      return cur;
+    }
+    return helper(cur, node.left) + helper(cur, node.right);
   };
-
-  return dfs(root, 0);
+  return helper(0, root);
 };
 // @lc code=end

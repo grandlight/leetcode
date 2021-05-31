@@ -16,18 +16,18 @@ function TreeNode(val, left, right) {
  * @return {void} Do not return anything, modify root in-place instead.
  */
 var recoverTree = function (root) {
-  let nodes = [];
-  let values = [];
-
-  let inorder = (node) => {
-    if (!node) return;
-    inorder(node.left);
+  const helper = (node) => {
+    if (!node) {
+      return;
+    }
+    helper(node.left);
     nodes.push(node);
     values.push(node.val);
-    inorder(node.right);
+    helper(node.right);
   };
-
-  inorder(root);
+  const nodes = [];
+  const values = [];
+  helper(root);
   values.sort((a, b) => a - b);
   for (let i = 0; i < nodes.length; ++i) {
     nodes[i].val = values[i];

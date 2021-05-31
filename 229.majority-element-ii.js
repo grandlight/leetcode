@@ -10,15 +10,17 @@
  * @return {number[]}
  */
 var majorityElement = function (nums) {
-  let major1;
-  let major2;
+  let major1 = 0;
+  let major2 = 0;
   let count1 = 0;
   let count2 = 0;
 
-  for (num of nums) {
-    if (num === major1) ++count1;
-    else if (num === major2) ++count2;
-    else if (count1 === 0) {
+  for (const num of nums) {
+    if (num === major1) {
+      ++count1;
+    } else if (num === major2) {
+      ++count2;
+    } else if (count1 === 0) {
       major1 = num;
       ++count1;
     } else if (count2 === 0) {
@@ -33,13 +35,20 @@ var majorityElement = function (nums) {
   count1 = 0;
   count2 = 0;
   for (num of nums) {
-    if (num === major1) ++count1;
-    else if (num === major2) ++count2;
+    if (num === major1) {
+      ++count1;
+    } else if (num === major2) {
+      ++count2;
+    }
   }
 
-  let majorities = [];
-  if (count1 > nums.length / 3) majorities.push(major1);
-  if (count2 > nums.length / 3) majorities.push(major2);
-  return majorities;
+  const res = [];
+  if (count1 > nums.length / 3) {
+    res.push(major1);
+  }
+  if (count2 > nums.length / 3) {
+    res.push(major2);
+  }
+  return res;
 };
 // @lc code=end

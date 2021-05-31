@@ -16,14 +16,17 @@ function TreeNode(val, left, right) {
  * @return {void} Do not return anything, modify root in-place instead.
  */
 var flatten = function (root) {
-  if (!root) return;
-  if (root.left) flatten(root.left);
-  if (root.right) flatten(root.right);
-
-  let tmp = root.right;
+  if (!root) {
+    return;
+  }
+  flatten(root.left);
+  flatten(root.right);
+  const tmp = root.right;
   root.right = root.left;
   root.left = null;
-  while (root.right) root = root.right;
+  while (root.right) {
+    root = root.right;
+  }
   root.right = tmp;
 };
 // @lc code=end

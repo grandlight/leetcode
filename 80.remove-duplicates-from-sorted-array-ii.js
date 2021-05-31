@@ -10,12 +10,12 @@
  * @return {number}
  */
 var removeDuplicates = function (nums) {
-  let len = 0;
-  for (let i = 0; i < nums.length; ++i) {
-    if (len < 2 || nums[i] !== nums[len - 2]) {
-      nums[len++] = nums[i];
+  let i = 0;
+  for (const num of nums) {
+    if (i < 2 || num > nums[i - 2]) {
+      nums[i++] = num;
     }
   }
-  return len;
+  return i;
 };
 // @lc code=end

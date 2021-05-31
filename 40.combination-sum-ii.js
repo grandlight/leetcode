@@ -11,25 +11,25 @@
  * @return {number[][]}
  */
 var combinationSum2 = function (candidates, target) {
-  candidates.sort();
-  let result = [];
-
-  let dfs = (idx, res, target) => {
-    if (target < 0) return;
-    else if (target === 0) {
-      result.push(res.slice());
+  const helper = (cur, idx, t) => {
+    if (t <= 0) {
+      if (t === 0) {
+        res.push(cur.slice());
+      }
       return;
     }
     for (let i = idx; i < candidates.length; ++i) {
-      if (i > idx && candidates[i] === candidates[i - 1]) continue;
-      res.push(candidates[i]);
-      dfs(i + 1, res, target - candidates[i]);
-      res.pop();
+      if (i > idx && candidates[i] === candidates[i - 1]) {
+        continue;
+      }
+      cur.push(candidates[i]);
+      helper(cur, i + 1, t - candidates[i]);
+      cur.pop();
     }
   };
-
-  dfs(0, [], target);
-  return result;
+  candidates.sort((a, b) => a - b);
+  const res = [];
+  helper([], 0, target);
+  return res;
 };
-combinationSum2([3, 1, 3, 5, 1, 1], 8);
 // @lc code=end

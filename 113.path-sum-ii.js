@@ -17,20 +17,20 @@ function TreeNode(val, left, right) {
  * @return {number[][]}
  */
 var pathSum = function (root, sum) {
-  let res = [];
-
-  let dfs = (curr, node, num) => {
-    if (!node) return;
-    curr.push(node.val);
-    if (num === node.val && !node.left && !node.right) {
-      res.push(curr.slice());
+  const helper = (cur, node, target) => {
+    if (!node) {
+      return;
     }
-    dfs(curr, node.left, num - node.val);
-    dfs(curr, node.right, num - node.val);
-    curr.pop();
+    if (!node.left && !node.right && node.val === target) {
+      res.push([...cur, node.val]);
+    }
+    cur.push(node.val);
+    helper(cur, node.left, target - node.val);
+    helper(cur, node.right, target - node.val);
+    cur.pop();
   };
-
-  dfs([], root, sum);
+  const res = [];
+  helper([], root, sum);
   return res;
 };
 // @lc code=end

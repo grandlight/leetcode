@@ -11,37 +11,35 @@
  * @return {number[][]}
  */
 var fourSum = function (nums, target) {
-  let n = nums.length;
-  if (n < 4) return [];
+  const res = [];
   nums.sort((a, b) => a - b);
-
-  let sum4nums = (i, j, k, l) => {
-    return nums[i] + nums[j] + nums[k] + nums[l];
-  };
-
-  let quadruplets = [];
-  for (let i = 0; i < n - 3; ++i) {
-    if (i > 0 && nums[i] == nums[i - 1]) continue;
-    if (sum4nums(i, i + 1, i + 2, i + 3) > target) break;
-    if (sum4nums(i, n - 3, n - 2, n - 1) < target) continue;
-    for (let j = i + 1; j < n - 2; ++j) {
-      if (j > i + 1 && nums[j] == nums[j - 1]) continue;
-      if (sum4nums(i, j, j + 1, j + 2) > target) break;
-      if (sum4nums(i, j, n - 2, n - 1) < target) continue;
-      let k = j + 1;
-      let l = n - 1;
-      while (k < l) {
-        let sum = sum4nums(i, j, k, l);
+  for (let i = 0; i < nums.length - 3; ++i) {
+    if (i > 0 && nums[i] === nums[i - 1]) {
+      continue;
+    }
+    for (let j = i + 1; j < nums.length - 2; ++j) {
+      if (j > i + 1 && nums[j] === nums[j - 1]) {
+        continue;
+      }
+      let left = j + 1;
+      let right = nums.length - 1;
+      while (left < right) {
+        const sum = nums[i] + nums[j] + nums[left] + nums[right];
         if (sum === target) {
-          quadruplets.push([nums[i], nums[j], nums[k], nums[l]]);
-          while (nums[++k] == nums[k - 1]);
-          while (nums[--l] == nums[l + 1]);
+          res.push([nums[i], nums[j], nums[left], nums[right]]);
+          ++left, --right;
+          while (left < right && nums[left] === nums[left - 1]) {
+            ++left;
+          }
+          while (left < right && nums[right] === nums[right + 1]) {
+            --right;
+          }
         } else {
-          sum < target ? ++k : --l;
+          sum < target ? ++left : --right;
         }
       }
     }
   }
-  return quadruplets;
+  return res;
 };
 // @lc code=end

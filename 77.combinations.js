@@ -11,21 +11,19 @@
  * @return {number[][]}
  */
 var combine = function (n, k) {
-  let res = [];
-
-  let dfs = (idx, curr, level) => {
-    if (level === k) {
-      res.push(curr.slice());
+  const helper = (cur, idx) => {
+    if (cur.length === k) {
+      res.push(cur.slice());
       return;
     }
     for (let i = idx; i < n + 1; ++i) {
-      curr.push(i);
-      dfs(i + 1, curr, level + 1);
-      curr.pop();
+      cur.push(i);
+      helper(cur, i + 1);
+      cur.pop();
     }
   };
-
-  dfs(1, [], 0);
+  const res = [];
+  helper([], 1);
   return res;
 };
 // @lc code=end

@@ -11,22 +11,24 @@
  * @return {number[][]}
  */
 var combinationSum3 = function (k, n) {
-  let res = [];
-
-  let dfs = (curr, idx, sum) => {
-    if (sum > n) return;
-    if (curr.length === k) {
-      if (sum === n) res.push(curr.slice());
+  const helper = (cur, idx, target) => {
+    if (target < 0) {
+      return;
+    }
+    if (cur.length === k) {
+      if (target === 0) {
+        res.push(cur.slice());
+      }
       return;
     }
     for (let i = idx; i < 10; ++i) {
-      curr.push(i);
-      dfs(curr, i + 1, i + sum);
-      curr.pop(i);
+      cur.push(i);
+      helper(cur, i + 1, target - i);
+      cur.pop();
     }
   };
-
-  dfs([], 1, 0);
+  const res = [];
+  helper([], 1, n);
   return res;
 };
 // @lc code=end

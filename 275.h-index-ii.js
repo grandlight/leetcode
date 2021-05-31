@@ -10,16 +10,17 @@
  * @return {number}
  */
 var hIndex = function (citations) {
-  let N = citations.length;
+  const N = citations.length;
   let left = 0;
   let right = N;
   while (left < right) {
-    let mid = Math.floor((left + right) / 2);
-    let h = N - mid;
-    if (citations[mid] >= h) {
+    const mid = left + Math.trunc((right - left) / 2);
+    if (citations[mid] < N - mid) {
+      left = mid + 1;
+    } else {
       right = mid;
-    } else left = mid + 1;
+    }
   }
-  return N - left;
+  return N - right;
 };
 // @lc code=end

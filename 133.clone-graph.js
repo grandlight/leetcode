@@ -15,19 +15,22 @@ function Node(val, neighbors) {
  * @return {Node}
  */
 var cloneGraph = function (node) {
-  let map = {};
-
-  let dfs = (currNode) => {
-    if (!currNode) return;
-    const val = currNode.val;
-    if (map.hasOwnProperty(val)) return map[val];
-    map[val] = new Node(val);
-    for (let i = 0; i < currNode.neighbors.length; ++i) {
-      map[val].neighbors.push(dfs(currNode.neighbors[i]));
+  if (!node) {
+    return node;
+  }
+  const clone = {};
+  clone[node.val] = new Node(node.val);
+  const q = [node];
+  while (q.length) {
+    const curr = q.shift();
+    for (const nb of curr.neighbors) {
+      if (!(nb.val in clone)) {
+        q.push(nb);
+        clone[nb.val] = new Node(nb.val);
+      }
+      clone[curr.val].neighbors.push(clone[nb.val]);
     }
-    return map[val];
-  };
-
-  return dfs(node);
+  }
+  return clone[node.val];
 };
 // @lc code=end

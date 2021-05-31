@@ -6,23 +6,22 @@
 
 // @lc code=start
 /**
- * @param {number} s
+ * @param {number} target
  * @param {number[]} nums
  * @return {number}
  */
-var minSubArrayLen = function (s, nums) {
-  let start = 0,
-    sum = 0,
-    min = Infinity;
-  for (let i = 0; i < nums.length; ++i) {
-    sum += nums[i];
-    if (sum >= s) {
-      while (sum - nums[start] >= s) {
-        sum -= nums[start++];
-      }
-      min = Math.min(min, i - start + 1);
+var minSubArrayLen = function (target, nums) {
+  let res = nums.length + 1;
+  let sum = 0;
+  let left = 0;
+  let right = 0;
+  while (right < nums.length) {
+    sum += nums[right++];
+    while (sum >= target) {
+      res = Math.min(res, right - left);
+      sum -= nums[left++];
     }
   }
-  return sum >= s ? min : 0;
+  return res !== nums.length + 1 ? res : 0;
 };
 // @lc code=end

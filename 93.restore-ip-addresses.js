@@ -10,26 +10,38 @@
  * @return {string[]}
  */
 var restoreIpAddresses = function (s) {
-  let res = [];
-
-  let isValid = (str) => {
-    if (str.length === 0 || (str[0] === "0" && str.length > 1)) return false;
-    return parseInt(str) < 256;
+  const isValid = (ip) => {
+    if (!ip || ip.length > 3) {
+      return false;
+    }
+    if (ip.length > 1 && ip[0] === "0") {
+      return false;
+    }
+    return 0 <= Number(ip) && Number(ip) <= 255;
   };
-
-  let dfs = (curr, ip, sec) => {
-    if (sec === 4) {
-      if (ip.length === 0) res.push(curr.slice());
+  const helper = (cur, sec, idx) => {
+    if (idx > s.length) {
       return;
     }
-    for (let i = 1; i < 4 && i <= ip.length; ++i) {
-      let str = ip.slice(0, i);
-      if (!isValid(str)) return;
-      dfs(sec === 0 ? str : `${curr}.${str}`, ip.slice(i), sec + 1);
+    if (sec === 4) {
+      if (idx === s.length) {
+        res.push(cur);
+      }
+      return;
+    }
+    for (let i = 1; i < 4; ++i) {
+      const ip = s.slice(idx, idx + i);
+      if (isValid(ip)) {
+        if (sec === 3) {
+          helper(cur + ip, sec + 1, idx + i);
+        } else {
+          helper(cur + ip + ".", sec + 1, idx + i);
+        }
+      }
     }
   };
-
-  dfs("", s, 0);
+  const res = [];
+  helper("", 0, 0);
   return res;
 };
 // @lc code=end

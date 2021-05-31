@@ -13,7 +13,7 @@ var singleNumber = function (nums) {
   let res = 0;
   for (let i = 0; i < 32; ++i) {
     let bit = 0;
-    for (let num of nums) {
+    for (const num of nums) {
       bit += (num >> i) & 1;
     }
     res |= bit % 3 << i;

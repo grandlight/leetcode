@@ -10,12 +10,17 @@
  * @return {number[]}
  */
 var singleNumber = function (nums) {
-  let diff = nums.reduce((accu, curr) => (accu ^= curr), 0);
-  diff &= -diff;
-  let res = [0, 0];
-  for (let num of nums) {
-    diff & num ? (res[0] ^= num) : (res[1] ^= num);
+  let xy = 0;
+  for (const num of nums) {
+    xy ^= num;
   }
-  return res;
+  const bit = xy ^ (xy & (xy - 1));
+  let x = 0;
+  for (const num of nums) {
+    if (num & bit) {
+      x ^= num;
+    }
+  }
+  return [x, xy ^ x];
 };
 // @lc code=end

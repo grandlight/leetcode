@@ -16,19 +16,23 @@ function TreeNode(val, left, right) {
  * @return {number[]}
  */
 var rightSideView = function (root) {
-  if (!root) return [];
-  let res = [];
-  let queue = [root];
-
-  while (queue.length > 0) {
-    res.push(queue[queue.length - 1].val);
-    for (let q = queue.length; q > 0; --q) {
-      let node = queue.shift();
-      if (node.left !== null) queue.push(node.left);
-      if (node.right !== null) queue.push(node.right);
+  if (!root) {
+    return [];
+  }
+  const res = [];
+  const q = [root];
+  while (q.length) {
+    res.push(q[q.length - 1].val);
+    for (let i = q.length; i > 0; --i) {
+      const node = q.shift();
+      if (node.left) {
+        q.push(node.left);
+      }
+      if (node.right) {
+        q.push(node.right);
+      }
     }
   }
-
   return res;
 };
 // @lc code=end

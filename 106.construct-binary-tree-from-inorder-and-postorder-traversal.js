@@ -17,20 +17,20 @@ function TreeNode(val, left, right) {
  * @return {TreeNode}
  */
 var buildTree = function (inorder, postorder) {
-  let build = (iLeft, iRight, pLeft, pRight) => {
-    if (iLeft > iRight || pLeft > pRight) return null;
-
-    let i = 0;
-    for (i = iLeft; i <= iRight; ++i) {
-      if (inorder[i] === postorder[pRight]) break;
+  const helper = (p, iLeft, iRight) => {
+    if (p < 0 || iLeft > iRight) {
+      return null;
     }
-
-    let root = new TreeNode(inorder[i]);
-    root.left = build(iLeft, i - 1, pLeft, pLeft + i - iLeft - 1);
-    root.right = build(i + 1, iRight, pLeft + i - iLeft, pRight - 1);
+    const i = lookup[postorder[p]];
+    const root = new TreeNode(inorder[i]);
+    root.left = helper(p - iRight + i - 1, iLeft, i - 1);
+    root.right = helper(p - 1, i + 1, iRight);
     return root;
   };
-
-  return build(0, inorder.length - 1, 0, postorder.length - 1);
+  const lookup = {};
+  for (let i = 0; i < inorder.length; ++i) {
+    lookup[inorder[i]] = i;
+  }
+  return helper(postorder.length - 1, 0, inorder.length - 1);
 };
 // @lc code=end

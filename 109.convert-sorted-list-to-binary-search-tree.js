@@ -21,23 +21,21 @@ function TreeNode(val, left, right) {
  * @return {TreeNode}
  */
 var sortedListToBST = function (head) {
-  if (!head) return null;
-  if (!head.next) return new TreeNode(head.val);
-  let prev = head;
-  let slow = head;
-  let fast = head;
-  while (fast.next && fast.next.next) {
-    prev = slow;
-    slow = slow.next;
-    fast = fast.next.next;
-  }
-  fast = slow.next;
-  prev.next = null;
-  let root = new TreeNode(slow.val);
-  if (head !== slow) {
-    root.left = sortedListToBST(head);
-  }
-  root.right = sortedListToBST(fast);
-  return root;
+  const helper = (head, tail) => {
+    if (head === tail) {
+      return null;
+    }
+    let slow = head;
+    let fast = head;
+    while (fast !== tail && fast.next !== tail) {
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+    const node = new TreeNode(slow.val);
+    node.left = helper(head, slow);
+    node.right = helper(slow.next, tail);
+    return node;
+  };
+  return head ? helper(head, null) : null;
 };
 // @lc code=end

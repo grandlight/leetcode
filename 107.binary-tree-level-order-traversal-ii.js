@@ -16,22 +16,26 @@ function TreeNode(val, left, right) {
  * @return {number[][]}
  */
 var levelOrderBottom = function (root) {
-  if (!root) return [];
-  let result = [];
-  let queue = [root];
-
-  while (queue.length > 0) {
-    let len = queue.length;
-    let currentLevel = [];
-    while (len--) {
-      let node = queue.shift();
-      currentLevel.push(node.val);
-      if (node.left !== null) queue.push(node.left);
-      if (node.right !== null) queue.push(node.right);
-    }
-    result.push(currentLevel);
+  if (!root) {
+    return [];
   }
-
-  return result.reverse();
+  const res = [];
+  const q = [root];
+  while (q.length) {
+    const level = [];
+    const len = q.length;
+    for (let i = 0; i < len; ++i) {
+      const node = q.shift();
+      level.push(node.val);
+      if (node.left) {
+        q.push(node.left);
+      }
+      if (node.right) {
+        q.push(node.right);
+      }
+    }
+    res.push(level);
+  }
+  return res.reverse();
 };
 // @lc code=end

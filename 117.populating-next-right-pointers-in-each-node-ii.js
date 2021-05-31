@@ -17,27 +17,25 @@ function Node(val, left, right, next) {
  * @return {Node}
  */
 var connect = function (root) {
-  if (!root) return null;
-  let node = root.next;
-  while (node) {
-    if (node.left) {
-      node = node.left;
-      break;
+  const head = root;
+  const dummy = new Node(-1);
+  let curr = dummy;
+  while (root) {
+    if (root.left) {
+      curr.next = root.left;
+      curr = curr.next;
     }
-    if (node.right) {
-      node = node.right;
-      break;
+    if (root.right) {
+      curr.next = root.right;
+      curr = curr.next;
     }
-    node = node.next;
+    root = root.next;
+    if (!root) {
+      curr = dummy;
+      root = dummy.next;
+      dummy.next = null;
+    }
   }
-  if (root.right) {
-    root.right.next = node;
-  }
-  if (root.left) {
-    root.left.next = root.right ? root.right : node;
-  }
-  connect(root.right);
-  connect(root.left);
-  return root;
+  return head;
 };
 // @lc code=end

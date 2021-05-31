@@ -18,7 +18,7 @@ function TreeNode(val, left, right) {
  */
 var buildTree = function (preorder, inorder) {
   const helper = (p, iLeft, iRight) => {
-    if (p > preorder.length || iLeft > iRight) {
+    if (p >= preorder.length || iLeft > iRight) {
       return null;
     }
     const i = lookup[preorder[p]];

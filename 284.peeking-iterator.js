@@ -25,39 +25,38 @@
  * @param {Iterator} iterator
  */
 var PeekingIterator = function (iterator) {
-  this.iter = iterator;
-  this.kept = false;
-  this.pVal;
+  this.iterator = iterator;
+  this.val = null;
+  this._hasNext = iterator.hasNext();
+  this._hasPeek = false;
 };
 
 /**
  * @return {number}
  */
 PeekingIterator.prototype.peek = function () {
-  if (!this.kept) {
-    this.pVal = this.iter.next();
+  if (!this._hasPeek) {
+    this._hasPeek = true;
+    this.val = this.iterator.next();
   }
-  this.kept = true;
-  return this.pVal;
+  return this.val;
 };
 
 /**
  * @return {number}
  */
 PeekingIterator.prototype.next = function () {
-  if (!this.kept) {
-    this.pVal = this.iter.next();
-  }
-  this.kept = false;
-  return this.pVal;
+  this.val = this.peek();
+  this._hasPeek = false;
+  this._hasNext = this.iterator.hasNext();
+  return this.val;
 };
 
 /**
  * @return {boolean}
  */
 PeekingIterator.prototype.hasNext = function () {
-  if (this.kept) return true;
-  return this.iter.hasNext();
+  return this._hasNext;
 };
 
 /**
