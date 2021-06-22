@@ -9,12 +9,12 @@
 
 # @lc code=start
 class Solution:
-    def convertToTitle(self, n: int) -> str:
+    def convertToTitle(self, columnNumber: int) -> str:
         res = ""
-        while n:
-            res += chr((n - 1) % 26 + ord("A"))
-            n = (n - 1) // 26
-        return res[::-1]
+        while columnNumber:
+            res = chr((columnNumber - 1) % 26 + 65) + res
+            columnNumber = (columnNumber - 1) // 26
+        return res
 
 
 # @lc code=end

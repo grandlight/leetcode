@@ -13,12 +13,12 @@ from typing import List
 # @lc code=start
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
-        res = 0
-        for i in range(len(nums)):
-            if nums[i] != val:
-                nums[res] = nums[i]
-                res += 1
-        return res
+        i = 0
+        for num in nums:
+            if num != val:
+                nums[i] = num
+                i += 1
+        return i
 
 
 # @lc code=end

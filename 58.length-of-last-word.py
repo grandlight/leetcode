@@ -10,14 +10,13 @@
 # @lc code=start
 class Solution:
     def lengthOfLastWord(self, s: str) -> int:
-        length = 0
+        res = 0
         for i in range(len(s) - 1, -1, -1):
-            if s[i] == " ":
-                if length:
-                    return length
-            else:
-                length += 1
-        return length
+            if s[i] != " ":
+                res += 1
+            elif res > 0:
+                return res
+        return res
 
 
 # @lc code=end

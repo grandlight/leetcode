@@ -19,13 +19,12 @@ class Solution:
     def removeElements(self, head: ListNode, val: int) -> ListNode:
         # iterative
         dummy = ListNode(-1, head)
-        prev, curr = dummy, dummy.next
-        while curr:
-            if curr.val == val:
-                prev.next = curr.next
+        curr = dummy
+        while curr.next:
+            if curr.next.val == val:
+                curr.next = curr.next.next
             else:
-                prev = curr
-            curr = curr.next
+                curr = curr.next
         return dummy.next
 
         # recursive
